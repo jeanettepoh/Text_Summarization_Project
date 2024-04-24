@@ -1,0 +1,40 @@
+artifacts_root: artifacts
+
+
+data_ingestion:
+  active: false
+  root_dir: artifacts/data_ingestion
+  dataset_name: "billsum"
+  dataset_split: "ca_test"
+  test_ratio: 0.2
+
+
+data_validation:
+  active: false
+  root_dir: artifacts/data_validation
+  data_path: artifacts/data_ingestion
+  status_file: artifacts/data_validation/status.txt
+  all_required_files: ["train", "validation", "test"]
+
+
+data_transformation:
+  active: false
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion
+  tokenizer_name: "google-t5/t5-small"
+
+
+model_trainer:
+  active: false
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation
+  model_ckpt: "google-t5/t5-small"
+
+
+model_evaluation:
+  active: false
+  root_dir: artifacts/model_evaluation
+  data_path: artifacts/data_transformation
+  model_path: artifacts/model_trainer/model
+  tokenizer_path: artifacts/model_trainer/tokenizer
+  metric_file_name: artifacts/model_evaluation/metrics.csv
